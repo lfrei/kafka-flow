@@ -14,11 +14,11 @@ function Flow() {
     useEffect(() => setElements(() => convertTopologyToFlow(newTopology)), [newTopology, setElements]);
 
     return (
-        <div style={{ height: 1200 }}>
+        <div style={{ height: 600 }}>
             <div className="update-topology-control">
                 <textarea
-                    rows="20"
-                    cols="50"
+                    rows="10"
+                    cols="100"
                     value={newTopology}
                     onChange={(evt) => setTopology(evt.target.value)} />
             </div>
