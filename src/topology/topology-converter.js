@@ -1,5 +1,5 @@
 function id(source, target) {
-    return source + '-' + target;
+    return `${source}-${target}`;
 }
 
 function isRepartition(topic) {
