@@ -2,27 +2,38 @@ function id(source, target) {
     return `${source}-${target}`;
 }
 
-function isRepartition(topic) {
-    return topic.includes("repartition");
+function toIntermediateTopic(topic) {
+    return {
+        ...topic,
+        type: 'default',
+    }
+}
+
+function addOrReplaceTopic(elements, topic) {
+    let index = elements.findIndex(e => e.id === topic.id);
+
+    if (index !== -1) {
+        elements[index] = toIntermediateTopic(topic);
+    } else {
+        elements.push(topic);
+    }
 }
 
 function addSinkTopic(elements, processor, topic) {
-    elements.push({
+    addOrReplaceTopic(elements, {
         id: topic,
-        type: isRepartition(topic) ? 'default' : 'output',
+        type: 'output',
         data: { label: <div className='topic'>{topic}</div> },
-    })
+    });
     elements.push({ id: id(processor, topic), source: processor, target: topic, animated: true });
 }
 
 function addSourceTopic(elements, processor, topic) {
-    if (!isRepartition(topic)) {
-        elements.push({
-            id: topic,
-            type: 'input',
-            data: { label: <div className='topic'>{topic}</div> },
-        });
-    }
+    addOrReplaceTopic(elements, {
+        id: topic,
+        type: 'input',
+        data: { label: <div className='topic'>{topic}</div> },
+    });
     elements.push({ id: id(topic, processor), source: topic, target: processor, animated: true });
 }
 
