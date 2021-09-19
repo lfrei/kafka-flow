@@ -2,6 +2,10 @@ function id(source, target) {
     return `${source}-${target}`;
 }
 
+function exists(elements, id) {
+    return elements.some(element => element.id === id);
+}
+
 function toIntermediateTopic(topic) {
     return {
         ...topic,
@@ -38,11 +42,13 @@ function addSourceTopic(elements, processor, topic) {
 }
 
 function addStore(elements, processor, store) {
-    elements.push({
-        id: store,
-        type: 'output',
-        data: { label: <div className='store'>{store}</div> },
-    })
+    if (!exists(elements, store)) {
+        elements.push({
+            id: store,
+            type: 'output',
+            data: { label: <div className='store'>{store}</div> },
+        })
+    }
 
     if (processor.includes("JOIN")) {
         elements.push({ id: id(store, processor), source: store, target: processor, animated: true });
