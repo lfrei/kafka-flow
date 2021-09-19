@@ -9,7 +9,7 @@ import getOffset from "../kafka/offset-service.js";
 import updateElements from '../topology/topic-updater.js';
 
 function Flow() {
-    const initialTopology = topology.complex;
+    const initialTopology = topology.simple;
     const initialElements = horizontalLayout(convertTopologyToFlow(initialTopology));
 
     const [elements, setElements] = useState(initialElements);
