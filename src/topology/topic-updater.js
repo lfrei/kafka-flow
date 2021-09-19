@@ -2,7 +2,7 @@ function updateElement(element, topic, offset) {
     if (element.id === topic) {
         element.data = {
             ...element.data,
-            label: `${topic}: ${offset}`,
+            label: <div className='topic'>{topic}: {offset}</div>,
         };
     }
     return element;

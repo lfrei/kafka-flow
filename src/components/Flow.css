@@ -3,6 +3,12 @@
     margin-bottom: 20px;
 }
 
+.topic, .processor, .store {
+    height: 30px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}
+
 textarea {
     vertical-align: top;
     font-size: 15px;

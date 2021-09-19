@@ -6,34 +6,31 @@ function isRepartition(topic) {
     return topic.includes("repartition");
 }
 
-function addSinkTopic(elements, processor, topic, xPos, yPos) {
+function addSinkTopic(elements, processor, topic) {
     elements.push({
         id: topic,
         type: isRepartition(topic) ? 'default' : 'output',
-        data: { label: topic },
-        position: { x: xPos, y: yPos + 100 },
+        data: { label: <div className='topic'>{topic}</div> },
     })
     elements.push({ id: id(processor, topic), source: processor, target: topic, animated: true });
 }
 
-function addSourceTopic(elements, processor, topic, xPos, yPos) {
+function addSourceTopic(elements, processor, topic) {
     if (!isRepartition(topic)) {
         elements.push({
             id: topic,
             type: 'input',
-            data: { label: topic },
-            position: { x: xPos, y: yPos },
+            data: { label: <div className='topic'>{topic}</div> },
         });
     }
     elements.push({ id: id(topic, processor), source: topic, target: processor, animated: true });
 }
 
-function addStore(elements, processor, store, xPos, yPos) {
+function addStore(elements, processor, store) {
     elements.push({
         id: store,
         type: 'output',
-        data: { label: store },
-        position: { x: xPos + 200, y: yPos + 100 },
+        data: { label: <div className='store'>{store}</div> },
     })
 
     if (processor.includes("JOIN")) {
@@ -43,11 +40,10 @@ function addStore(elements, processor, store, xPos, yPos) {
     }
 }
 
-function addProcessor(elements, processor, xPos, yPos) {
+function addProcessor(elements, processor) {
     elements.push({
         id: processor,
-        data: { label: processor },
-        position: { x: xPos, y: yPos },
+        data: { label: <div className='processor'>{processor}</div> },
     })
 }
 
@@ -61,10 +57,7 @@ function addStream(elements, processor, target) {
 
 function convertTopologyToFlow(topology) {
     let elements = [];
-
     let processor;
-    let yPos = 0;
-    let xPos = 0;
 
     topology.split('\n').forEach(line => {
 
@@ -82,19 +75,17 @@ function convertTopologyToFlow(topology) {
                     // short circuit
                 }
                 else if (type === 'topic') {
-                    addSinkTopic(elements, processor, state, xPos, yPos);
+                    addSinkTopic(elements, processor, state);
                 }
                 else if (type === 'topics') {
-                    addSourceTopic(elements, processor, state, xPos, yPos);
-                    yPos = yPos + 100;
+                    addSourceTopic(elements, processor, state);
                 }
                 else if (type === 'stores') {
-                    addStore(elements, processor, state, xPos, yPos);
+                    addStore(elements, processor, state);
                 }
             });
 
-            addProcessor(elements, processor, xPos, yPos);
-            yPos = yPos + 100;
+            addProcessor(elements, processor);
 
             return;
         }

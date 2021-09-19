@@ -3,18 +3,19 @@ import React, { useEffect, useState } from 'react';
 import ReactFlow from 'react-flow-renderer';
 import topology from '../topology/topology-example.json';
 import convertTopologyToFlow from '../topology/topology-converter.js';
+import horizontalLayout from '../topology/topology-layouter.js';
 import getTopicsFromElements from '../topology/topic-extractor.js';
-import getOffset from "../kafka/offset-loader.js";
+import getOffset from "../kafka/offset-service.js";
 import updateElements from '../topology/topic-updater.js';
 
 function Flow() {
     const initialTopology = topology.complex;
-    const initialElements = convertTopologyToFlow(initialTopology);
+    const initialElements = horizontalLayout(convertTopologyToFlow(initialTopology));
 
     const [elements, setElements] = useState(initialElements);
     const [newTopology, setTopology] = useState(initialTopology);
 
-    useEffect(() => setElements(() => convertTopologyToFlow(newTopology)), [newTopology, setElements]);
+    useEffect(() => setElements(() => horizontalLayout(convertTopologyToFlow(newTopology))), [newTopology, setElements]);
 
     useEffect(() => {
         const id = setInterval(() => {
