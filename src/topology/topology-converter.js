@@ -29,7 +29,7 @@ function addSinkTopic(elements, processor, topic) {
         type: 'output',
         data: { label: <div className='topic'>{topic}</div> },
     });
-    elements.push({ id: id(processor, topic), source: processor, target: topic, animated: true });
+    elements.push({ id: id(processor, topic), source: processor, target: topic });
 }
 
 function addSourceTopic(elements, processor, topic) {
@@ -38,7 +38,7 @@ function addSourceTopic(elements, processor, topic) {
         type: 'input',
         data: { label: <div className='topic'>{topic}</div> },
     });
-    elements.push({ id: id(topic, processor), source: topic, target: processor, animated: true });
+    elements.push({ id: id(topic, processor), source: topic, target: processor });
 }
 
 function addStore(elements, processor, store) {
@@ -51,9 +51,9 @@ function addStore(elements, processor, store) {
     }
 
     if (processor.includes("JOIN")) {
-        elements.push({ id: id(store, processor), source: store, target: processor, animated: true });
+        elements.push({ id: id(store, processor), source: store, target: processor });
     } else {
-        elements.push({ id: id(processor, store), source: processor, target: store, animated: true });
+        elements.push({ id: id(processor, store), source: processor, target: store });
     }
 }
 
@@ -69,7 +69,7 @@ function addStream(elements, processor, target) {
         return;
     }
 
-    elements.push({ id: id(processor, target), source: processor, target: target, animated: true });
+    elements.push({ id: id(processor, target), source: processor, target: target });
 }
 
 function convertTopologyToFlow(topology) {

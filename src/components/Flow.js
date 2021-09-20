@@ -7,6 +7,7 @@ import horizontalLayout from '../topology/topology-layouter.js';
 import getTopicsFromElements from '../topology/topic-extractor.js';
 import getOffset from "../kafka/offset-service.js";
 import updateTopics from '../topology/topic-updater.js';
+import updateEdges from '../topology/edge-updater.js';
 
 function Flow() {
     const initialTopology = topology.simple;
@@ -24,7 +25,7 @@ function Flow() {
             topics.forEach(topic => {
                 getOffset(topic).then((offset) => {
                     setElements((elements) =>
-                        updateTopics(elements, topic, offset)
+                        updateEdges(updateTopics(elements, topic, offset), topic)
                     );
                 })
             });
