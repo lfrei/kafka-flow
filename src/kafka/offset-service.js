@@ -1,7 +1,5 @@
-const host = 'http://localhost:8080';
-
-async function getOffset(topic) {
-    const response = await fetch(`${host}/offset/${topic}`)
+async function getOffset(url, topic) {
+    const response = await fetch(`${url}/${topic}`)
     return response.json();
 }
 
