@@ -4,9 +4,11 @@
 }
 
 .topic, .processor, .store {
-    height: 30px;
+    height: 40px;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 textarea {
