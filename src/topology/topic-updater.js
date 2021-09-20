@@ -1,15 +1,38 @@
-function updateElement(element, topic, offset) {
+const runningColor = '#D6D5E6';
+const stoppedColor = '#fff';
+
+function isRunning(element, offset) {
+    return offset > element.data.offset;
+}
+
+function updateElementData(element, topic, offset, running) {
+    return {
+        ...element.data,
+        offset,
+        running,
+        label: <div className='topic'>{topic}: {offset}</div>,
+    };
+}
+
+function updateElementStyle(element, running) {
+    return {
+        ...element.style,
+        background: running ? runningColor : stoppedColor,
+    };
+}
+
+function updateTopic(element, topic, offset) {
     if (element.id === topic) {
-        element.data = {
-            ...element.data,
-            label: <div className='topic'>{topic}: {offset}</div>,
-        };
+        let running = isRunning(element, offset);
+
+        element.data = updateElementData(element, topic, offset, running);
+        element.style = updateElementStyle(element, running);
     }
     return element;
 }
 
-function updateElements(elements, topic, offset) {
-    return elements.map((element) => updateElement(element, topic, offset));
+function updateTopics(elements, topic, offset) {
+    return elements.map((element) => updateTopic(element, topic, offset));
 }
 
-export default updateElements;
+export default updateTopics;
