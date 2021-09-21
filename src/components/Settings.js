@@ -1,15 +1,10 @@
 import React from 'react';
 
-function Settings({ settings, onSettingChanged }) {
-
-    const onLoadTopology = (e) => {
-        console.log(`Load topology from ${settings.topologyUrl}`);
-        //TODO load topology from url
-    } 
+function Settings({ settings, onSettingChanged, onLoadTopology }) {
 
     return (
         <form>
-            <div className="form-group">
+            <div className="form-group mb-2">
                 <label htmlFor="topology">Topology</label>
                 <textarea
                     rows="10"
@@ -21,7 +16,7 @@ function Settings({ settings, onSettingChanged }) {
                 />
             </div>
 
-            <div className="form-group">
+            <div className="form-group mb-2">
                 <label htmlFor="topologyUrl">Topology URL</label>
                 <div className="input-group">
                     <input
@@ -43,7 +38,7 @@ function Settings({ settings, onSettingChanged }) {
                 </div>
             </div>
 
-            <div className="form-group">
+            <div className="form-group mb-2">
                 <label htmlFor="offsetUrl">Offset URL</label>
                 <input
                     type="text"
@@ -55,7 +50,7 @@ function Settings({ settings, onSettingChanged }) {
                 />
             </div>
 
-            <div className="form-group">
+            <div className="form-group mb-2">
                 <label htmlFor="offsetInterval">Offset Interval (ms)</label>
                 <input
                     type="text"

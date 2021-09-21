@@ -9,6 +9,7 @@ import {
   Route
 } from "react-router-dom";
 import example from './topology/topology-example.json';
+import getTopology from './kafka/topology-service.js';
 
 
 function App() {
@@ -22,7 +23,13 @@ function App() {
 
   const onSettingChanged = (e) => {
     setSettings({ ...settings, [e.target.id]: e.target.value });
-}
+  }
+
+  const onLoadTopology = (e) => {
+    getTopology(settings.topologyUrl).then((loadedTopology) => {
+      setSettings({ ...settings, topology: loadedTopology });
+    })
+  }
 
   return (
     <Router>
@@ -30,10 +37,10 @@ function App() {
         <Header />
         <Switch>
           <Route path="/settings">
-            <Settings settings={settings} onSettingChanged={onSettingChanged} />
+            <Settings settings={settings} onSettingChanged={onSettingChanged} onLoadTopology={onLoadTopology} />
           </Route>
           <Route path="/">
-            <Flow settings={settings}/>
+            <Flow settings={settings} />
           </Route>
         </Switch>
       </div>
