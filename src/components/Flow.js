@@ -8,24 +8,26 @@ import getOffset from "../kafka/offset-service.js";
 import updateTopics from '../topology/topic-updater.js';
 import updateEdges from '../topology/edge-updater.js';
 
-function Flow({settings}) {
+function Flow({ settings }) {
     const initialElements = horizontalLayout(convertTopologyToFlow(settings.topology));
     const [elements, setElements] = useState(initialElements);
 
     useEffect(() => {
-        const id = setInterval(() => {
-            let topics = getTopicsFromElements(elements);
+        if (settings.offsetCheck) {
+            const id = setInterval(() => {
+                let topics = getTopicsFromElements(elements);
 
-            topics.forEach(topic => {
-                getOffset(settings.offsetUrl, topic).then((offset) => {
-                    setElements((elements) =>
-                        updateEdges(updateTopics(elements, topic, offset), topic)
-                    );
-                })
-            });
-        }, settings.offsetInterval);
+                topics.forEach(topic => {
+                    getOffset(settings.offsetUrl, topic).then((offset) => {
+                        setElements((elements) =>
+                            updateEdges(updateTopics(elements, topic, offset), topic)
+                        );
+                    })
+                });
+            }, settings.offsetInterval);
 
-        return () => clearInterval(id);
+            return () => clearInterval(id);
+        }
     }, [elements, setElements, settings]);
 
     return (

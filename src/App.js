@@ -19,10 +19,12 @@ function App() {
     topologyUrl: "",
     offsetUrl: "http://localhost:8080/offset",
     offsetInterval: 2000,
+    offsetCheck: true
   });
 
   const onSettingChanged = (e) => {
-    setSettings({ ...settings, [e.target.id]: e.target.value });
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    setSettings({ ...settings, [e.target.id]: value });
   }
 
   const onLoadTopology = (e) => {

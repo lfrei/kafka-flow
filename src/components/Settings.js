@@ -38,6 +38,17 @@ function Settings({ settings, onSettingChanged, onLoadTopology }) {
                 </div>
             </div>
 
+            <div className="form-check mt-5 mb-2">
+                <label className="form-check-label" htmlFor="offsetCheck">Enable Offset Polling</label>
+                <input
+                    type="checkbox"
+                    className="form-check-input"
+                    id="offsetCheck"
+                    checked={settings.offsetCheck}
+                    onChange={onSettingChanged}
+                />
+            </div>
+
             <div className="form-group mb-2">
                 <label htmlFor="offsetUrl">Offset URL</label>
                 <input
@@ -47,6 +58,7 @@ function Settings({ settings, onSettingChanged, onLoadTopology }) {
                     id="offsetUrl"
                     value={settings.offsetUrl}
                     onChange={onSettingChanged}
+                    disabled={!settings.offsetCheck}
                 />
             </div>
 
@@ -59,6 +71,7 @@ function Settings({ settings, onSettingChanged, onLoadTopology }) {
                     id="offsetInterval"
                     value={settings.offsetInterval}
                     onChange={onSettingChanged}
+                    disabled={!settings.offsetCheck}
                 />
             </div>
         </form>
