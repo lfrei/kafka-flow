@@ -1,3 +1,5 @@
+import Node from '../components/Node.js';
+
 const runningColor = '#D6D5E6';
 const stoppedColor = '#fff';
 
@@ -10,7 +12,7 @@ function updateElementData(element, topic, offset, running) {
         ...element.data,
         offset,
         running,
-        label: <div className='topic'>{topic}: {offset}</div>,
+        label: <Node type='topic' name={topic} offset={offset}/>,
     };
 }
 

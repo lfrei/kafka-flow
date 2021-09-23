@@ -1,0 +1,10 @@
+.topic, .processor, .store {
+    height: 40px;
+    font-family: 'Courier New', Courier, monospace;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.offset {
+    font-weight: bold;
+}

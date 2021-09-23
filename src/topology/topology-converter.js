@@ -1,3 +1,5 @@
+import Node from '../components/Node.js';
+
 function id(source, target) {
     return `${source}-${target}`;
 }
@@ -27,7 +29,7 @@ function addSinkTopic(elements, processor, topic) {
     addOrReplaceTopic(elements, {
         id: topic,
         type: 'output',
-        data: { label: <div className='topic'>{topic}</div> },
+        data: { label: <Node type='topic' name={topic}/> },
     });
     elements.push({ id: id(processor, topic), source: processor, target: topic });
 }
@@ -36,7 +38,7 @@ function addSourceTopic(elements, processor, topic) {
     addOrReplaceTopic(elements, {
         id: topic,
         type: 'input',
-        data: { label: <div className='topic'>{topic}</div> },
+        data: { label: <Node type='topic' name={topic}/> },
     });
     elements.push({ id: id(topic, processor), source: topic, target: processor });
 }
@@ -46,7 +48,7 @@ function addStore(elements, processor, store) {
         elements.push({
             id: store,
             type: 'output',
-            data: { label: <div className='store'>{store}</div> },
+            data: { label: <Node type='store' name={store}/> },
         })
     }
 
@@ -60,7 +62,7 @@ function addStore(elements, processor, store) {
 function addProcessor(elements, processor) {
     elements.push({
         id: processor,
-        data: { label: <div className='processor'>{processor}</div> },
+        data: { label: <Node type='processor' name={processor}/> },
     })
 }
 

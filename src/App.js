@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useState } from 'react';
-import Flow from './components/Flow.js'
+import Flow from './components/Flow.js';
 import Header from './components/Header.js';
 import Settings from './components/Settings.js';
 import {
