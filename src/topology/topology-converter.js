@@ -29,7 +29,7 @@ function addSinkTopic(elements, processor, topic) {
     addOrReplaceTopic(elements, {
         id: topic,
         type: 'output',
-        data: { label: <Node type='topic' name={topic}/> },
+        data: { label: <Node type='topic' name={topic} /> },
     });
     elements.push({ id: id(processor, topic), source: processor, target: topic });
 }
@@ -38,7 +38,7 @@ function addSourceTopic(elements, processor, topic) {
     addOrReplaceTopic(elements, {
         id: topic,
         type: 'input',
-        data: { label: <Node type='topic' name={topic}/> },
+        data: { label: <Node type='topic' name={topic} /> },
     });
     elements.push({ id: id(topic, processor), source: topic, target: processor });
 }
@@ -48,7 +48,7 @@ function addStore(elements, processor, store) {
         elements.push({
             id: store,
             type: 'output',
-            data: { label: <Node type='store' name={store}/> },
+            data: { label: <Node type='store' name={store} /> },
         })
     }
 
@@ -62,7 +62,7 @@ function addStore(elements, processor, store) {
 function addProcessor(elements, processor) {
     elements.push({
         id: processor,
-        data: { label: <Node type='processor' name={processor}/> },
+        data: { label: <Node type='processor' name={processor} /> },
     })
 }
 
@@ -87,22 +87,23 @@ function convertTopologyToFlow(topology) {
             let type = processorMatch[3];
             let states = processorMatch[4];
 
-            states.split(',').forEach(state => {
-                state = state.replace(/[[\]]/g, '').trim();
+            states.split(',')
+                .map(state => state.replace(/[[\]]/g, '').trim())
+                .forEach(state => {
 
-                if (state === '') {
-                    // short circuit
-                }
-                else if (type === 'topic') {
-                    addSinkTopic(elements, processor, state);
-                }
-                else if (type === 'topics') {
-                    addSourceTopic(elements, processor, state);
-                }
-                else if (type === 'stores') {
-                    addStore(elements, processor, state);
-                }
-            });
+                    if (state === '') {
+                        // short circuit
+                    }
+                    else if (type === 'topic') {
+                        addSinkTopic(elements, processor, state);
+                    }
+                    else if (type === 'topics') {
+                        addSourceTopic(elements, processor, state);
+                    }
+                    else if (type === 'stores') {
+                        addStore(elements, processor, state);
+                    }
+                });
 
             addProcessor(elements, processor);
 
@@ -114,10 +115,11 @@ function convertTopologyToFlow(topology) {
         if (streamMatch && processor) {
             let targets = streamMatch[1];
 
-            targets.split(',').forEach(target => {
-                target = target.trim();
-                addStream(elements, processor, target);
-            });
+            targets.split(',')
+                .map(target => target.trim())
+                .forEach(target => {
+                    addStream(elements, processor, target);
+                });
         }
     })
 
