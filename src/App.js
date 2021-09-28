@@ -17,9 +17,9 @@ function App() {
   const [settings, setSettings] = useState({
     topology: example.simple,
     topologyUrl: "",
-    offsetUrl: "http://localhost:8080/offset",
+    offsetUrl: "",
     offsetInterval: 2000,
-    offsetCheck: true
+    offsetCheck: false
   });
 
   const onSettingChanged = (e) => {
