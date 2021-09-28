@@ -1,5 +1,7 @@
 # kafka-flow
 
+![CI](https://github.com/lfrei/kafka-flow/workflows/CI/badge.svg)
+
 Visualize the data flowing through a kafka streams topology.
 
 ## Running Kafka Stream
