@@ -1,5 +1,6 @@
 import './App.css';
 import React, { useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import Flow from './components/Flow.js';
 import Header from './components/Header.js';
 import Settings from './components/Settings.js';
@@ -10,7 +11,6 @@ import {
 } from "react-router-dom";
 import example from './topology/topology-example.json';
 import getTopology from './kafka/topology-service.js';
-
 
 function App() {
 
@@ -28,21 +28,29 @@ function App() {
   }
 
   const onLoadTopology = (e) => {
-    getTopology(settings.topologyUrl).then((loadedTopology) => {
-      setSettings({ ...settings, topology: loadedTopology });
-    })
+    getTopology(settings.topologyUrl)
+      .then((response) => response.text())
+      .then((loadedTopology) => {
+        setSettings({ ...settings, topology: loadedTopology });
+      })
+      .catch(() => onError('Failed to load topology'))
+  }
+
+  const onError = (message) => {
+    toast.error(message);
   }
 
   return (
     <Router>
       <div className="container-fluid">
+        <Toaster />
         <Header />
         <Switch>
           <Route path="/settings">
             <Settings settings={settings} onSettingChanged={onSettingChanged} onLoadTopology={onLoadTopology} />
           </Route>
           <Route path="/">
-            <Flow settings={settings} />
+            <Flow settings={settings} onError={onError} />
           </Route>
         </Switch>
       </div>

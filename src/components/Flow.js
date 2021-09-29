@@ -8,7 +8,7 @@ import getOffset from "../kafka/offset-service.js";
 import updateTopics from '../topology/topic-updater.js';
 import updateEdges from '../topology/edge-updater.js';
 
-function Flow({ settings }) {
+function Flow({ settings, onError }) {
     const initialElements = horizontalLayout(convertTopologyToFlow(settings.topology));
     const [elements, setElements] = useState(initialElements);
 
@@ -18,17 +18,23 @@ function Flow({ settings }) {
                 let topics = getTopicsFromElements(elements);
 
                 topics.forEach(topic => {
-                    getOffset(settings.offsetUrl, topic).then((offset) => {
-                        setElements((elements) =>
-                            updateEdges(updateTopics(elements, topic, offset), topic)
-                        );
-                    })
+                    getOffset(settings.offsetUrl, topic)
+                        .then((response) => response.json())
+                        .then((offset) => {
+                            setElements((elements) =>
+                                updateEdges(updateTopics(elements, topic, offset), topic)
+                            );
+                        })
+                        .catch(() => {
+                            clearInterval(id);
+                            onError(`Failed to load offset for topic ${topic}`);
+                        })
                 });
             }, settings.offsetInterval);
 
             return () => clearInterval(id);
         }
-    }, [elements, setElements, settings]);
+    }, [elements, setElements, settings, onError]);
 
     return (
         <div style={{ height: 600 }}>

@@ -1,6 +1,5 @@
 async function getOffset(url, topic) {
-    const response = await fetch(`${url}/${topic}`)
-    return response.json();
+    return fetch(`${url}/${topic}`)
 }
 
 export default getOffset;
