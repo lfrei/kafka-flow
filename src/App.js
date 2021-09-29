@@ -10,7 +10,6 @@ import {
   Route
 } from "react-router-dom";
 import example from './topology/topology-example.json';
-import getTopology from './kafka/topology-service.js';
 
 function App() {
 
@@ -22,18 +21,8 @@ function App() {
     offsetCheck: false
   });
 
-  const onSettingChanged = (e) => {
-    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-    setSettings({ ...settings, [e.target.id]: value });
-  }
-
-  const onLoadTopology = (e) => {
-    getTopology(settings.topologyUrl)
-      .then((response) => response.text())
-      .then((loadedTopology) => {
-        setSettings({ ...settings, topology: loadedTopology });
-      })
-      .catch(() => onError('Failed to load topology'))
+  const onSettingChanged = (key, value) => {
+    setSettings({ ...settings, [key]: value });
   }
 
   const onError = (message) => {
@@ -47,7 +36,7 @@ function App() {
         <Header />
         <Switch>
           <Route path="/settings">
-            <Settings settings={settings} onSettingChanged={onSettingChanged} onLoadTopology={onLoadTopology} />
+            <Settings settings={settings} onSettingChanged={onSettingChanged} onError={onError} />
           </Route>
           <Route path="/">
             <Flow settings={settings} onError={onError} />

@@ -1,6 +1,22 @@
 import React from 'react';
+import getTopology from '../kafka/topology-service.js';
 
-function Settings({ settings, onSettingChanged, onLoadTopology }) {
+function Settings({ settings, onSettingChanged, onError }) {
+
+    const onChangeSetting = (e) => {
+        const key = e.target.id;
+        const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+        onSettingChanged(key, value)
+    }
+
+    const onLoadTopology = () => {
+        getTopology(settings.topologyUrl)
+            .then((response) => response.text())
+            .then((loadedTopology) => {
+                onSettingChanged('topology', loadedTopology);
+            })
+            .catch(() => onError('Failed to load topology'))
+    }
 
     return (
         <form>
@@ -12,7 +28,7 @@ function Settings({ settings, onSettingChanged, onLoadTopology }) {
                     placeholder="Topology"
                     id="topology"
                     value={settings.topology}
-                    onChange={onSettingChanged}
+                    onChange={onChangeSetting}
                 />
             </div>
 
@@ -25,7 +41,7 @@ function Settings({ settings, onSettingChanged, onLoadTopology }) {
                         placeholder="URL to Topology Describe (optional)"
                         id="topologyUrl"
                         value={settings.topologyUrl}
-                        onChange={onSettingChanged}
+                        onChange={onChangeSetting}
                     />
                     <button
                         type="button"
@@ -45,7 +61,7 @@ function Settings({ settings, onSettingChanged, onLoadTopology }) {
                     className="form-check-input"
                     id="offsetCheck"
                     checked={settings.offsetCheck}
-                    onChange={onSettingChanged}
+                    onChange={onChangeSetting}
                 />
             </div>
 
@@ -57,7 +73,7 @@ function Settings({ settings, onSettingChanged, onLoadTopology }) {
                     placeholder="URL to load Offsets (optional)"
                     id="offsetUrl"
                     value={settings.offsetUrl}
-                    onChange={onSettingChanged}
+                    onChange={onChangeSetting}
                     disabled={!settings.offsetCheck}
                 />
             </div>
@@ -70,7 +86,7 @@ function Settings({ settings, onSettingChanged, onLoadTopology }) {
                     placeholder="URL to load Offsets (optional)"
                     id="offsetInterval"
                     value={settings.offsetInterval}
-                    onChange={onSettingChanged}
+                    onChange={onChangeSetting}
                     disabled={!settings.offsetCheck}
                 />
             </div>
