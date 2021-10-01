@@ -1,8 +1,8 @@
 import './Header.css';
-import { useHistory , useLocation} from 'react-router-dom';
-import { FiSettings } from "react-icons/fi";
+import Toolbar from './Toolbar.js';
+import { useHistory, useLocation } from 'react-router-dom';
 
-function Header() {
+function Header({ settings, onSettingChanged }) {
     const history = useHistory();
     const location = useLocation();
 
@@ -14,21 +14,23 @@ function Header() {
         }
     }
 
+    const onToggleCompact = () => {
+        onSettingChanged('topologyCompact', !settings.topologyCompact);
+    }
+
     return (
         <div className="mt-1 mb-4">
-           <header className="row">
+            <header className="row">
                 <div className="col-md-11 title">
                     Kafka Flow
                 </div>
                 <div className="col-md-1 title">
-                    <div className="float-end settings">
-                        <FiSettings onClick={onSetttingsClicked}/>
-                    </div>
+                    <Toolbar onSetttingsClicked={onSetttingsClicked} onCompactClicked={onToggleCompact} isCompact={settings.topologyCompact} />
                 </div>
                 <div className="col-md-12 subtitle">
                     Visualize the data flowing through a kafka streams topology
                 </div>
-            </header> 
+            </header>
         </div>
     )
 }

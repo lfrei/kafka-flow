@@ -16,6 +16,7 @@ function App() {
   const [settings, setSettings] = useState({
     topology: example.simple,
     topologyUrl: "",
+    topologyCompact: false,
     offsetUrl: "",
     offsetInterval: 2000,
     offsetCheck: false
@@ -33,7 +34,7 @@ function App() {
     <Router>
       <div className="container-fluid">
         <Toaster />
-        <Header />
+        <Header settings={settings} onSettingChanged={onSettingChanged} />
         <Switch>
           <Route path="/settings">
             <Settings settings={settings} onSettingChanged={onSettingChanged} onError={onError} />
