@@ -2,6 +2,7 @@ import './Flow.css';
 import React, { useEffect, useState } from 'react';
 import ReactFlow from 'react-flow-renderer';
 import convertTopologyToFlow from '../topology/topology-converter.js';
+import compactTopology from '../topology/topology-compacter.js';
 import horizontalLayout from '../topology/topology-layouter.js';
 import getTopicsFromElements from '../topology/topic-extractor.js';
 import getOffset from "../kafka/offset-service.js";
@@ -11,6 +12,14 @@ import updateEdges from '../topology/edge-updater.js';
 function Flow({ settings, onError }) {
     const initialElements = horizontalLayout(convertTopologyToFlow(settings.topology));
     const [elements, setElements] = useState(initialElements);
+
+    useEffect(() => {
+        let newElements = convertTopologyToFlow(settings.topology);
+        if (settings.topologyCompact) {
+            newElements = compactTopology(newElements);   
+        } 
+        setElements(horizontalLayout(newElements));
+    }, [settings, setElements])
 
     useEffect(() => {
         if (settings.offsetCheck) {
