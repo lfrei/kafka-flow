@@ -74,7 +74,7 @@ function addStream(elements, processor, target) {
     elements.push({ id: id(processor, target), source: processor, target: target });
 }
 
-function convertTopologyToFlow(topology) {
+function convertTopologyToFlow(topology, includeStores) {
     let elements = [];
     let processor;
 
@@ -100,7 +100,7 @@ function convertTopologyToFlow(topology) {
                     else if (type === 'topics') {
                         addSourceTopic(elements, processor, state);
                     }
-                    else if (type === 'stores') {
+                    else if (type === 'stores' && includeStores) {
                         addStore(elements, processor, state);
                     }
                 });

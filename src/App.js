@@ -17,6 +17,7 @@ function App() {
     topology: example.simple,
     topologyUrl: "",
     topologyCompact: false,
+    topologyShowStores: true,
     offsetUrl: "",
     offsetInterval: 2000,
     offsetCheck: false

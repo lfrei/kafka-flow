@@ -20,8 +20,10 @@ function Settings({ settings, onSettingChanged, onError }) {
 
     return (
         <form>
+            <h5>Topology</h5>
+
             <div className="form-group mb-2">
-                <label htmlFor="topology">Topology</label>
+                <label htmlFor="topology">Topology Description</label>
                 <textarea
                     rows="10"
                     className="form-control"
@@ -54,7 +56,20 @@ function Settings({ settings, onSettingChanged, onError }) {
                 </div>
             </div>
 
-            <div className="form-check mt-5 mb-2">
+            <div className="form-check mb-2">
+                <label className="form-check-label" htmlFor="offsetCheck">Show internal Stores</label>
+                <input
+                    type="checkbox"
+                    className="form-check-input"
+                    id="topologyShowStores"
+                    checked={settings.topologyShowStores}
+                    onChange={onChangeSetting}
+                />
+            </div>
+
+            <h5 className="mt-5">Offsets</h5>
+            
+            <div className="form-check mb-2">
                 <label className="form-check-label" htmlFor="offsetCheck">Enable Offset Polling</label>
                 <input
                     type="checkbox"

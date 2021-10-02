@@ -14,7 +14,7 @@ function Flow({ settings, onError }) {
     const [elements, setElements] = useState(initialElements);
 
     useEffect(() => {
-        let newElements = convertTopologyToFlow(settings.topology);
+        let newElements = convertTopologyToFlow(settings.topology, settings.topologyShowStores);
         if (settings.topologyCompact) {
             newElements = compactTopology(newElements);   
         } 
