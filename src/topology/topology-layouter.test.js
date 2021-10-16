@@ -1,5 +1,6 @@
 import horizontalLayout from './topology-layouter.js';
 
+const initial = 50;
 const elements = [
   {
     id: 'a',
@@ -34,13 +35,13 @@ it('layout topology horizontally', () => {
   let nodeC = layoutedElements.find(el => el.id === 'c');
   let nodeD = layoutedElements.find(el => el.id === 'd');
 
-  expectPosition(nodeA, 50, 100);
-  expectPosition(nodeB, 280, 100);
-  expectPosition(nodeC, 510, 50);
-  expectPosition(nodeD, 510, 150);
+  expectPosition(nodeA, 0, 50);
+  expectPosition(nodeB, 230, 50);
+  expectPosition(nodeC, 460, 0);
+  expectPosition(nodeD, 460, 100);
 });
 
 function expectPosition(node, x, y) {
-  expect(node.position.x).toBeCloseTo(x);
-  expect(node.position.y).toEqual(y);
+  expect(node.position.x - initial).toBeCloseTo(x);
+  expect(node.position.y - initial).toEqual(y);
 }
