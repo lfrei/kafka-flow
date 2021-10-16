@@ -46,7 +46,7 @@ function Flow({ settings, onError }) {
     }, [elements, setElements, settings, onError]);
 
     return (
-        <div style={{ height: 600 }}>
+        <div style={{ height: 600 }} className="flow-area">
             <ReactFlow elements={elements} />
         </div>
     )
