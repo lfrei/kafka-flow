@@ -7,15 +7,17 @@ function Toolbar({ onSetttingsClicked, onCompactClicked, isCompact }) {
     return (
         <div className="float-end toolbar">
 
-            <ReactTooltip
+            <ReactTooltip id="tooltip-compact"
                 place="left"
                 effect="solid"
                 type="light"
                 border="true"
                 borderColor="lightgrey">
+
+                {isCompact ? "Expand topology" : "Compact topology"}
             </ReactTooltip>
 
-            <span className="toolbar-icon" data-tip="Compact topology">
+            <span className="toolbar-icon" data-tip data-for="tooltip-compact">
                 {isCompact ?
                     <FiMaximize onClick={onCompactClicked} /> :
                     <FiMinimize onClick={onCompactClicked} />
