@@ -3,10 +3,12 @@ import '@testing-library/jest-dom'
 import { render, screen, fireEvent } from '@testing-library/react';
 import App from './App';
 
-window.ResizeObserver = class ResizeObserver {
-    observe() { }
-    unobserve() { }
-}
+beforeAll(() => {
+    window.ResizeObserver = class ResizeObserver {
+        observe() { }
+        unobserve() { }
+    }
+})
 
 it('renders without crashing', () => {
     render(<App />);
