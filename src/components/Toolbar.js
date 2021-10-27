@@ -11,7 +11,7 @@ function Toolbar({ onSetttingsClicked, onCompactClicked, isCompact }) {
                 place="left"
                 effect="solid"
                 type="light"
-                border="true"
+                border
                 borderColor="lightgrey">
 
                 {isCompact ? "Expand topology" : "Compact topology"}
@@ -19,8 +19,8 @@ function Toolbar({ onSetttingsClicked, onCompactClicked, isCompact }) {
 
             <span className="toolbar-icon" data-tip data-for="tooltip-compact">
                 {isCompact ?
-                    <FiMaximize onClick={onCompactClicked} /> :
-                    <FiMinimize onClick={onCompactClicked} />
+                    <FiMaximize onClick={onCompactClicked} data-testid="expand-topology"/> :
+                    <FiMinimize onClick={onCompactClicked} data-testid="compact-topology"/>
                 }
             </span>
             <span className="toolbar-icon">

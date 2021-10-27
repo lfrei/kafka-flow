@@ -12,7 +12,7 @@ function Node({ type, name, offset }) {
                     place="bottom"
                     effect="solid"
                     type="light"
-                    border="true"
+                    border
                     borderColor="lightgrey"
                     offset={{ bottom: 10 }}>
 
