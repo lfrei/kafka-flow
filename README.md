@@ -3,6 +3,7 @@
 ![CI](https://github.com/lfrei/kafka-flow/workflows/CI/badge.svg)
 
 Visualize the data flowing through a kafka streams topology.
+[Try it](https://lfrei.github.io/kafka-flow/).
 
 ## Running Kafka Stream
 
