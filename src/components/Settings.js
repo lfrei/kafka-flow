@@ -1,5 +1,6 @@
 import React from 'react';
 import getTopology from '../kafka/topology-service.js';
+import isValidTopology from '../topology/topology-validator.js';
 
 function Settings({ settings, onSettingChanged, onError }) {
 
@@ -13,7 +14,11 @@ function Settings({ settings, onSettingChanged, onError }) {
         getTopology(settings.topologyUrl)
             .then((response) => response.text())
             .then((loadedTopology) => {
-                onSettingChanged('topology', loadedTopology);
+                if (isValidTopology(loadedTopology)) {
+                    onSettingChanged('topology', loadedTopology);
+                } else {
+                    onError('Invalid topology loaded');
+                }
             })
             .catch(() => onError('Failed to load topology'))
     }
@@ -68,7 +73,7 @@ function Settings({ settings, onSettingChanged, onError }) {
             </div>
 
             <h5 className="mt-5">Offsets</h5>
-            
+
             <div className="form-check mb-2">
                 <label className="form-check-label" htmlFor="offsetCheck">Enable Offset Polling</label>
                 <input
