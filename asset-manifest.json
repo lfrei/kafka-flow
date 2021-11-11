@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/kafka-flow/static/css/main.5dba561a.chunk.css",
-    "main.js": "/kafka-flow/static/js/main.60cea9e9.chunk.js",
-    "main.js.map": "/kafka-flow/static/js/main.60cea9e9.chunk.js.map",
+    "main.js": "/kafka-flow/static/js/main.f2cd27b7.chunk.js",
+    "main.js.map": "/kafka-flow/static/js/main.f2cd27b7.chunk.js.map",
     "runtime-main.js": "/kafka-flow/static/js/runtime-main.4d3308a8.js",
     "runtime-main.js.map": "/kafka-flow/static/js/runtime-main.4d3308a8.js.map",
     "static/css/2.f2512455.chunk.css": "/kafka-flow/static/css/2.f2512455.chunk.css",
@@ -18,6 +18,6 @@
     "static/css/2.f2512455.chunk.css",
     "static/js/2.5d262d68.chunk.js",
     "static/css/main.5dba561a.chunk.css",
-    "static/js/main.60cea9e9.chunk.js"
+    "static/js/main.f2cd27b7.chunk.js"
   ]
 }
